@@ -6,6 +6,12 @@ variable "aws_access_key" {}
 
 variable "aws_secret_key" {}
 
+variable "db_username" {}
+
+variable "db_password" {}
+
+variable "ssh_key_name" {}
+
 variable "region" {
         default = "us-east-1"
 }
