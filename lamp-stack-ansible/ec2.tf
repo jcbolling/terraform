@@ -24,6 +24,7 @@ resource "aws_instance" "bn_test_ansible_control_host" {
   ami = "ami-0c2b8ca1dad447f8a" # Amazon Linux
   instance_type = "t2.micro"
   iam_instance_profile = aws_iam_instance_profile.bn_test_profile.name
+  user_data = "${file("post-instance-creation.sh")}"
 
   tags = {
       
