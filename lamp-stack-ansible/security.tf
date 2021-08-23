@@ -96,7 +96,7 @@ resource "aws_security_group" "bn_test_sg_22_from_bastion_to_private" {
 
 # Create Security Group to allow port 22. Ansible control node
 
-resource "aws_security_group" "bn_test_sg_22_from_private_to_rds" {
+resource "aws_security_group" "bn_test_sg_3306_from_private_to_rds" {
   name        = "bn_test_sg_3306_from_private_to_rds"
   description = "Allow port 3306"
   vpc_id      = aws_vpc.bn_test.id
@@ -118,6 +118,6 @@ resource "aws_security_group" "bn_test_sg_22_from_private_to_rds" {
   }
 
   tags = {
-    Name = "bn_test_allow_ssh_from_private_to_rds"
+    Name = "bn_test_sg_3306_from_private_to_rds"
   }
 }
