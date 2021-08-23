@@ -17,7 +17,7 @@ resource "aws_db_instance" "bn_test_mysql_db" {
     name                     = "wordpress"
     username                 = var.db_username
     password                 = var.db_password
-    db_subnet_group_name     = aws_db_subnet_group.db_main.name
+    db_subnet_group_name     = aws_db_subnet_group.default.name
     vpc_security_group_ids   = [aws_security_group.bn_test_sg_3306_from_private_to_rds.id]
     skip_final_snapshot      = true
 
