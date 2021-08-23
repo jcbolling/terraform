@@ -25,8 +25,10 @@ resource "aws_internet_gateway" "bn_test_igw_01" {
 
 resource "aws_nat_gateway" "bn_test_public_nat_gateway" {
 
-  subnet_id = aws_subnet.bn_test_private_subnet_01.id
-  
+  allocation_id = aws_eip.bn_test_nat_gateway_eip.id
+  subnet_id = aws_subnet.bn_test_public_subnet_01.id
+  depends_on = [aws_internet_gateway.bn_test_igw_01]
+
 }
 
 # Create Custom Route Table
@@ -37,6 +39,24 @@ resource "aws_route_table" "bn_test_rtbl_01" {
   route {
     cidr_block = "0.0.0.0/0" # default route sending all traffic from VPC to the internet
     gateway_id = aws_internet_gateway.bn_test_igw_01.id
+  }
+
+  route {
+    ipv6_cidr_block        = "::/0"
+    gateway_id = aws_internet_gateway.bn_test_igw_01.id
+  }
+
+  tags = {
+    Name = "BN-TEST-RTBL-01"
+  }
+}
+
+resource "aws_route_table" "bn_test_private_rtbl" {
+  vpc_id = aws_vpc.bn_test.id
+
+  route {
+    cidr_block = "0.0.0.0/0" # default route sending all traffic from VPC to the internet
+    gateway_id = aws_nat_gateway.bn_test_public_nat_gateway.id
   }
 
   route {
@@ -67,9 +87,9 @@ resource "aws_subnet" "bn_test_private_subnet_02" {
   cidr_block = "10.0.4.0/24"
 
   tags = {
-    Name = "BN-TEST-PRIVATE-SUBNET-01"
+    Name = "BN-TEST-PRIVATE-SUBNET-02"
   }
-  availability_zone = "us-east-1"
+  availability_zone = "us-east-1b"
 
 }
 
@@ -95,7 +115,7 @@ resource "aws_route_table_association" "bn_test_rta_public" {
 
 resource "aws_route_table_association" "bn_test_rta_private" {
   subnet_id      = aws_subnet.bn_test_private_subnet_01.id
-  route_table_id = aws_route_table.bn_test_rtbl_01.id
+  route_table_id = aws_route_table.bn_test_private_rtbl.id
 }
 
 # Create a network interface with an ip in the public subnet for bastion host connectivity
@@ -114,5 +134,11 @@ resource "aws_eip" "bn_test_eip" {
   associate_with_private_ip = "10.0.2.5"
   vpc      = true
   depends_on = [aws_internet_gateway.bn_test_igw_01]
+
+}
+
+resource "aws_eip" "bn_test_nat_gateway_eip" {
+
+  vpc      = true
 
 }
