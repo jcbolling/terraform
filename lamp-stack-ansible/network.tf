@@ -56,6 +56,17 @@ resource "aws_subnet" "bn_test_public_subnet_01" {
 
 }
 
+resource "aws_subnet" "bn_test_private_subnet_02" {
+  vpc_id     = aws_vpc.bn_test.id
+  cidr_block = "10.0.4.0/24"
+
+  tags = {
+    Name = "BN-TEST-PRIVATE-SUBNET-01"
+  }
+  availability_zone = "us-east-1b"
+
+}
+
 resource "aws_subnet" "bn_test_private_subnet_01" {
   vpc_id     = aws_vpc.bn_test.id
   cidr_block = "10.0.3.0/24"
