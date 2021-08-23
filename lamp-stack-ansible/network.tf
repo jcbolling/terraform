@@ -63,7 +63,7 @@ resource "aws_subnet" "bn_test_private_subnet_02" {
   tags = {
     Name = "BN-TEST-PRIVATE-SUBNET-01"
   }
-  availability_zone = "us-east-1b"
+  availability_zone = "us-east-1"
 
 }
 
