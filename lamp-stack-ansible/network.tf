@@ -23,6 +23,12 @@ resource "aws_internet_gateway" "bn_test_igw_01" {
   }
 }
 
+resource "aws_nat_gateway" "bn_test_public_nat_gateway" {
+
+  subnet_id = aws_subnet.bn_test_private_subnet_01.id
+  
+}
+
 # Create Custom Route Table
 
 resource "aws_route_table" "bn_test_rtbl_01" {
