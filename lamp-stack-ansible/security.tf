@@ -93,3 +93,31 @@ resource "aws_security_group" "bn_test_sg_22_from_bastion_to_private" {
     Name = "bn_test_allow_ssh_from_bastion_to_private_subnet"
   }
 }
+
+# Create Security Group to allow port 22. Ansible control node
+
+resource "aws_security_group" "bn_test_sg_22_from_private_to_rds" {
+  name        = "bn_test_sg_3306_from_private_to_rds"
+  description = "Allow port 3306"
+  vpc_id      = aws_vpc.bn_test.id
+
+  ingress {
+    description      = "MySQL"
+    from_port        = 3306
+    to_port          = 3306
+    protocol         = "tcp"
+    cidr_blocks      = ["10.0.3.0/24"] # this is where you want to allow connections FROM
+  }
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1" # -1 means any protocol
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  tags = {
+    Name = "bn_test_allow_ssh_from_private_to_rds"
+  }
+}
