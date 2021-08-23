@@ -2,7 +2,7 @@
 
 # Update instance
 
-/usr/bin/sudo yum update
+/usr/bin/sudo yum update -y
 
 # Install aws cli
 
