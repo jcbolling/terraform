@@ -10,19 +10,19 @@ resource "aws_security_group" "bn_test_sg_80_443" {
   vpc_id      = aws_vpc.bn_test.id
 
   ingress {
-    description      = "SSL"
-    from_port        = 443
-    to_port          = 443
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"] # this is where you want to allow connections FROM
+    description = "SSL"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] # this is where you want to allow connections FROM
   }
 
   ingress {
-    description      = "HTTP"
-    from_port        = 80
-    to_port          = 80
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"] # this is where you want to allow connections FROM
+    description = "HTTP"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] # this is where you want to allow connections FROM
   }
 
   egress {
@@ -46,11 +46,11 @@ resource "aws_security_group" "bn_test_sg_22_public" {
   vpc_id      = aws_vpc.bn_test.id
 
   ingress {
-    description      = "SSH"
-    from_port        = 22
-    to_port          = 22
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"] # this is where you want to allow connections FROM
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] # this is where you want to allow connections FROM
   }
 
   egress {
@@ -74,11 +74,11 @@ resource "aws_security_group" "bn_test_sg_22_from_bastion_to_private" {
   vpc_id      = aws_vpc.bn_test.id
 
   ingress {
-    description      = "SSH"
-    from_port        = 22
-    to_port          = 22
-    protocol         = "tcp"
-    cidr_blocks      = ["10.0.2.0/24"] # this is where you want to allow connections FROM
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["10.0.2.0/24"] # this is where you want to allow connections FROM
   }
 
   egress {
@@ -102,11 +102,11 @@ resource "aws_security_group" "bn_test_sg_3306_from_private_to_rds" {
   vpc_id      = aws_vpc.bn_test.id
 
   ingress {
-    description      = "MySQL"
-    from_port        = 3306
-    to_port          = 3306
-    protocol         = "tcp"
-    cidr_blocks      = ["10.0.3.0/24"] # this is where you want to allow connections FROM
+    description = "MySQL"
+    from_port   = 3306
+    to_port     = 3306
+    protocol    = "tcp"
+    cidr_blocks = ["10.0.3.0/24"] # this is where you want to allow connections FROM
   }
 
   egress {

@@ -26,8 +26,8 @@ resource "aws_internet_gateway" "bn_test_igw_01" {
 resource "aws_nat_gateway" "bn_test_public_nat_gateway" {
 
   allocation_id = aws_eip.bn_test_nat_gateway_eip.id
-  subnet_id = aws_subnet.bn_test_public_subnet_01.id
-  depends_on = [aws_internet_gateway.bn_test_igw_01]
+  subnet_id     = aws_subnet.bn_test_public_subnet_01.id
+  depends_on    = [aws_internet_gateway.bn_test_igw_01]
 
 }
 
@@ -42,8 +42,8 @@ resource "aws_route_table" "bn_test_rtbl_01" {
   }
 
   route {
-    ipv6_cidr_block        = "::/0"
-    gateway_id = aws_internet_gateway.bn_test_igw_01.id
+    ipv6_cidr_block = "::/0"
+    gateway_id      = aws_internet_gateway.bn_test_igw_01.id
   }
 
   tags = {
@@ -60,8 +60,8 @@ resource "aws_route_table" "bn_test_private_rtbl" {
   }
 
   route {
-    ipv6_cidr_block        = "::/0"
-    gateway_id = aws_internet_gateway.bn_test_igw_01.id
+    ipv6_cidr_block = "::/0"
+    gateway_id      = aws_internet_gateway.bn_test_igw_01.id
   }
 
   tags = {
@@ -130,15 +130,15 @@ resource "aws_network_interface" "bn_test_bastion_host_eni" {
 # Assign an elastic IP to the network interface
 
 resource "aws_eip" "bn_test_eip" {
-  network_interface = aws_network_interface.bn_test_bastion_host_eni.id
+  network_interface         = aws_network_interface.bn_test_bastion_host_eni.id
   associate_with_private_ip = "10.0.2.5"
-  vpc      = true
-  depends_on = [aws_internet_gateway.bn_test_igw_01]
+  vpc                       = true
+  depends_on                = [aws_internet_gateway.bn_test_igw_01]
 
 }
 
 resource "aws_eip" "bn_test_nat_gateway_eip" {
 
-  vpc      = true
+  vpc = true
 
 }

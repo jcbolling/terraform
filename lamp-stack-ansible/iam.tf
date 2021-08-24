@@ -24,7 +24,7 @@ resource "aws_iam_role" "role" {
 EOF
 }
 
-resource "aws_iam_role_policy_attachment" "sto-readonly-role-policy-attach" {
-  role       = "${aws_iam_role.role.name}"
+resource "aws_iam_role_policy_attachment" "ec2-to-rds-role-policy-attach" {
+  role       = aws_iam_role.role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonRDSReadOnlyAccess"
 }

@@ -13,11 +13,11 @@ variable "db_password" {}
 variable "ssh_key_name" {}
 
 variable "region" {
-        default = "us-east-1"
+  default = "us-east-1"
 }
 variable "vpc_subnet" {
-    
-    type = string
-    default = "10.0.0.0/16"
+
+  type    = string
+  default = "10.0.0.0/16"
 }
 
