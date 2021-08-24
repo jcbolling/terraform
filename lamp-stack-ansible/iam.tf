@@ -1,9 +1,9 @@
 resource "aws_iam_instance_profile" "bn_test_profile" {
-  name = "bn_test_profile"
-  role = aws_iam_role.bn_test_role.name
+  name = "test_profile"
+  role = aws_iam_role.role.name
 }
 
-resource "aws_iam_role" "bn_test_role" {
+resource "aws_iam_role" "role" {
   name = "test_role"
   path = "/"
 
@@ -22,4 +22,9 @@ resource "aws_iam_role" "bn_test_role" {
     ]
 }
 EOF
+}
+
+resource "aws_iam_role_policy_attachment" "sto-readonly-role-policy-attach" {
+  role       = "${aws_iam_role.role.name}"
+  policy_arn = "arn:aws:iam::aws:policy/AmazonRDSReadOnlyAccess"
 }
