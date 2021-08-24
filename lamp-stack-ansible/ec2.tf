@@ -10,7 +10,7 @@ resource "aws_instance" "bn_test_bastion_host" {
   }
 
   availability_zone = "us-east-1a"
-  key_name = "terraform-course"
+  key_name = "${var.ssh_key_name}"
 
   network_interface {
       device_index = 0 # hard code this as the first network interface on the instance
@@ -35,7 +35,7 @@ resource "aws_instance" "bn_test_ansible_control_host" {
   availability_zone = "us-east-1a"
   security_groups = [aws_security_group.bn_test_sg_22_from_bastion_to_private.id]
   subnet_id = aws_subnet.bn_test_private_subnet_01.id
-  key_name = "terraform-course"
+  key_name = "${var.ssh_key_name}"
 
 }
 
@@ -53,6 +53,6 @@ resource "aws_instance" "bn_test_web_server_01" {
   availability_zone = "us-east-1a"
   security_groups = [aws_security_group.bn_test_sg_22_from_bastion_to_private.id]
   subnet_id = aws_subnet.bn_test_private_subnet_01.id
-  key_name = "terraform-course"
+  key_name = "${var.ssh_key_name}"
 
 }
